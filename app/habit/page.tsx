@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 interface values {
+  id: number;
   title: string;
   description: string;
   frecuencia: string;
@@ -25,7 +26,13 @@ export default function AddHabit() {
   const [frecuencia, setFrecuencia] = useState("");
   const [arrayValues, setArrayValues] = useState<values[]>([]);
 
-  // Cargar los hábitos guardados al montar el componente
+  let idHabitList: number = 0;
+
+  const storedId = localStorage.getItem("idHabitList");
+  if (storedId) {
+    idHabitList = parseInt(storedId, 10); // Asegúrate de que es un número.
+  }
+
   useEffect(() => {
     const savedValues = JSON.parse(localStorage.getItem("habitos") || "[]");
     setArrayValues(savedValues);
@@ -33,6 +40,7 @@ export default function AddHabit() {
 
   const handleSetValues = () => {
     const objectValues: values = {
+      id: ++idHabitList,
       title: title,
       description: description,
       frecuencia: frecuencia,
@@ -40,14 +48,12 @@ export default function AddHabit() {
 
     console.log("Objeto agregado:", objectValues);
 
-    // Usamos el valor anterior del array para agregar el nuevo objeto
     setArrayValues((prevArray) => {
       const updatedArray = [...prevArray, objectValues];
 
-      // Guardamos el array actualizado en localStorage
       localStorage.setItem("habitos", JSON.stringify(updatedArray));
-
-      console.log("Array actualizado:", updatedArray); // Verificamos el array actualizado
+      localStorage.setItem("idHabitList", JSON.stringify(idHabitList));
+      console.log("Array actualizado:", updatedArray); 
       return updatedArray;
     });
 
@@ -71,27 +77,38 @@ export default function AddHabit() {
         </CardHeader>
 
         <CardContent>
-          <Input
+          <div className="my-3">
+            <label>Titulo</label>
+            <Input
+              type="text"
+              className=""
+              placeholder="Agrega un titulo"
+              id="title"
+              value={title}
+              onChange={(e) => setTitulo(e.target.value)}
+            />
+          </div>
+          <div className="my-3">
+            <label>Descripción</label>
+            <Input
+              type="text"
+              placeholder="Agrega una descripción"
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
+          
+          <div className="my-3">
+            <label>Frecuencia</label>
+            <Input
             type="text"
-            className="my-2"
-            id="title"
-            value={title}
-            onChange={(e) => setTitulo(e.target.value)}
-          />
-          <Input
-            type="text"
-            className="my-2"
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <Input
-            type="text"
-            className="my-2"
+            placeholder="Agrega la frecuencia"
             id="frecuencia"
             value={frecuencia}
             onChange={(e) => setFrecuencia(e.target.value)}
           />
+          </div>
         </CardContent>
 
         <CardFooter className="flex justify-around">
