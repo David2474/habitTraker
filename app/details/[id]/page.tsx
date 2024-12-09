@@ -20,7 +20,14 @@ interface Item {
   frecuencia: string;
 }
 
-const Details = ({ params }: { params: { id: string } }) => {
+// Página dinámica en Next.js (por ejemplo: [id].tsx)
+interface PageProps {
+  params: {
+    id: string; // Tipo correcto del parámetro de la ruta
+  };
+}
+
+const Details = ({ params }: PageProps) => {
   const Router = useRouter();
   const [item, setItem] = useState<Item | null>(null);
 
@@ -64,13 +71,9 @@ const Details = ({ params }: { params: { id: string } }) => {
             Regresar
           </Button>
 
-            <Link
-              href={`/update/${item.id}`}
-            >
-          <Button>
-              Editar
-          </Button>
-            </Link>
+          <Link href={`/update/${item.id}`}>
+            <Button>Editar</Button>
+          </Link>
         </CardFooter>
       </Card>
     </div>
@@ -78,3 +81,4 @@ const Details = ({ params }: { params: { id: string } }) => {
 };
 
 export default Details;
+
