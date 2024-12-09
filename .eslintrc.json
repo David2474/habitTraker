@@ -1,3 +1,8 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "rules": {
+    // Deshabilitar una regla específica
+    "no-unused-vars": "off",  // Deshabilita la regla sobre variables no utilizadas
+    "react/no-unused-prop-types": "off"  // Deshabilita la regla sobre prop types no utilizados
+  }
 }

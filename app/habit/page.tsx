@@ -26,6 +26,8 @@ export default function AddHabit() {
   const [frecuencia, setFrecuencia] = useState("");
   const [arrayValues, setArrayValues] = useState<values[]>([]);
 
+  console.log(arrayValues);
+
   let idHabitList: number = 0;
 
   const storedId = localStorage.getItem("idHabitList");
