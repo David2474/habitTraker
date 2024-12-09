@@ -7,10 +7,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> develop
 interface Habito {
   id: number;
   title?: string;
@@ -18,15 +15,12 @@ interface Habito {
   frecuencia?: string;
 }
 
-<<<<<<< HEAD
 interface ChangeValue {
   id: number;
   title?: string;
   description?: string;
   frecuencia?: string;
 }
-=======
->>>>>>> develop
 
 export default function Update({ params }: { params: { id: string } }) {
   const [item, setItem] = useState<Habito | null>(null);
